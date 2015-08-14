@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="kr.co.smartylab" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://smartylab.co.kr/products/op/adapter" name="LongTermDemo" targetNamespace="kr.co.smartylab" xmlns:p="http://www.w3.org/2001/XMLSchema">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ConcertAdapterPLT">
+    <plnk:role name="ConcertAdapterPLTRole" portType="wsdl:concert_adapter_soap_serverPortType"/>
+  </plnk:partnerLinkType>
+    <import location="adapter.wsdl" namespace="http://smartylab.co.kr/products/op/adapter"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="kr.co.smartylab">
+
+            <element name="LongTermDemoRequest">
+                <complexType>
+                    <sequence>
+                        <element name="input" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="LongTermDemoResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="sendServiceMsg">
+            	<complexType>
+            		<sequence>
+            			<element name="namespace" type="string"></element>
+            			<element name="message_val" type="string"></element>
+            			<element name="callback_method_id" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="sendServiceMsgResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="serviceResponse" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="sendActionMsg">
+            	<complexType>
+            		<sequence>
+            			<element name="namespace" type="string"></element>
+            			<element name="message_val" type="string"></element>
+            			<element name="callback_method_id" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="sendActionMsgResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="actionResponse" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="onActionResultSet">
+            	<complexType>
+            		<sequence>
+            			<element name="actionResultSet" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="onActionResultSetResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="actionResultResponse" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="onRuntimeFaultReport">
+            	<complexType>
+            		<sequence>
+            			<element name="runtimeFaultMsg" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="onRuntimeFaultReportResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="runtimeFaultResponse" type="string"></element>
+            		</sequence>
+            	</complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="LongTermDemoRequestMessage">
+        <part element="tns:LongTermDemoRequest" name="payload"/>
+    </message>
+    <message name="LongTermDemoResponseMessage">
+        <part element="tns:LongTermDemoResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the LongTermDemo BPEL process -->
+    <message name="sendServiceMsgRequest">
+    	<part name="parameters" element="tns:sendServiceMsg"></part>
+    </message>
+    <message name="sendServiceMsgResponse">
+    	<part name="parameters" element="tns:sendServiceMsgResponse"></part>
+    </message>
+    <message name="sendActionMsgRequest">
+    	<part name="parameters" element="tns:sendActionMsg"></part>
+    </message>
+    <message name="sendActionMsgResponse">
+    	<part name="parameters" element="tns:sendActionMsgResponse"></part>
+    </message>
+    <message name="onActionResultSetRequest">
+    	<part name="parameters" element="tns:onActionResultSet"></part>
+    </message>
+    <message name="onActionResultSetResponse">
+    	<part name="parameters" element="tns:onActionResultSetResponse"></part>
+    </message>
+    <message name="onRuntimeFaultReportRequest">
+    	<part name="parameters" element="tns:onRuntimeFaultReport"></part>
+    </message>
+    <message name="onRuntimeFaultReportResponse">
+    	<part name="parameters" element="tns:onRuntimeFaultReportResponse"></part>
+    </message>
+    <portType name="LongTermDemo">
+        <operation name="allocateResource">
+            <input message="tns:LongTermDemoRequestMessage"/>
+            <output message="tns:LongTermDemoResponseMessage"/>
+        </operation>
+        <operation name="sendServiceMsg">
+        	<input message="tns:sendServiceMsgRequest"></input>
+        	<output message="tns:sendServiceMsgResponse"></output>
+        </operation>
+        <operation name="sendActionMsg">
+        	<input message="tns:sendActionMsgRequest"></input>
+        	<output message="tns:sendActionMsgResponse"></output>
+        </operation>
+        <operation name="onActionResultSet">
+        	<input message="tns:onActionResultSetRequest"></input>
+        	<output message="tns:onActionResultSetResponse"></output>
+        </operation>
+        <operation name="onRuntimeFaultReport">
+        	<input message="tns:onRuntimeFaultReportRequest"></input>
+        	<output message="tns:onRuntimeFaultReportResponse"></output>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="LongTermDemo">
+        <plnk:role name="LongTermDemoProvider" portType="tns:LongTermDemo"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="LongTermDemoBinding" type="tns:LongTermDemo">
+    	<soap:binding style="document"
+    		transport="http://schemas.xmlsoap.org/soap/http" />
+    	<operation name="allocateResource">
+    		<soap:operation soapAction="kr.co.smartylab/process" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="sendServiceMsg">
+    		<soap:operation soapAction="kr.co.smartylab/sendServiceMsg" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="sendActionMsg">
+    		<soap:operation soapAction="kr.co.smartylab/sendActionMsg" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="onActionResultSet">
+    		<soap:operation
+    			soapAction="kr.co.smartylab/onActionResultSet" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    	<operation name="onRuntimeFaultReport">
+    		<soap:operation
+    			soapAction="kr.co.smartylab/onRuntimeFaultReport" />
+    		<input>
+    			<soap:body use="literal" />
+    		</input>
+    		<output>
+    			<soap:body use="literal" />
+    		</output>
+    	</operation>
+    </binding>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="LongTermDemoService">
+    	<port binding="tns:LongTermDemoBinding" name="LongTermDemoPort">
+    		<soap:address location="http://localhost:8080/ode/processes/LongTermDemo"/>
+    	</port>
+    </service>
+</definitions>
